@@ -1,1 +1,2 @@
 # myGame
+some simple games
