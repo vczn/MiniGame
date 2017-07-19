@@ -1,0 +1,10 @@
+E:\Visual Studio\project\C#\Gobang\Gobang\bin\Release\Gobang.exe.config
+E:\Visual Studio\project\C#\Gobang\Gobang\bin\Release\Gobang.exe
+E:\Visual Studio\project\C#\Gobang\Gobang\bin\Release\Gobang.pdb
+E:\Visual Studio\project\C#\Gobang\Gobang\obj\Release\Gobang.Form1.resources
+E:\Visual Studio\project\C#\Gobang\Gobang\obj\Release\Gobang.GameUI.resources
+E:\Visual Studio\project\C#\Gobang\Gobang\obj\Release\Gobang.Properties.Resources.resources
+E:\Visual Studio\project\C#\Gobang\Gobang\obj\Release\Gobang.Setting.resources
+E:\Visual Studio\project\C#\Gobang\Gobang\obj\Release\Gobang.csproj.GenerateResource.Cache
+E:\Visual Studio\project\C#\Gobang\Gobang\obj\Release\Gobang.exe
+E:\Visual Studio\project\C#\Gobang\Gobang\obj\Release\Gobang.pdb
