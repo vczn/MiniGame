@@ -71,7 +71,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MY2048));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-	wcex.lpszMenuName	= nullptr;
+    wcex.lpszMenuName   = nullptr;
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -89,27 +89,27 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
 //        创建和显示主程序窗口。
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
-	hInst = hInstance; // 将实例句柄存储在全局变量中
+    hInst = hInstance; // 将实例句柄存储在全局变量中
 
-	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, CW_USEDEFAULT, CLIENT_WIDTH, CLIENT_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
-	INT nScreenWidth	= GetSystemMetrics(SM_CXSCREEN);
-	INT nScreenHeight	= GetSystemMetrics(SM_CYSCREEN);
+    INT nScreenWidth    = GetSystemMetrics(SM_CXSCREEN);
+    INT nScreenHeight   = GetSystemMetrics(SM_CYSCREEN);
 
-	// 移到屏幕中央
-	MoveWindow(hWnd, (nScreenWidth - CLIENT_WIDTH) / 2, 
-		(nScreenHeight - CLIENT_HEIGHT) / 2, CLIENT_WIDTH, 
-		CLIENT_HEIGHT, TRUE);
+    // 移到屏幕中央
+    MoveWindow(hWnd, (nScreenWidth - CLIENT_WIDTH) / 2, 
+        (nScreenHeight - CLIENT_HEIGHT) / 2, CLIENT_WIDTH, 
+        CLIENT_HEIGHT, TRUE);
 
-	if (!hWnd) {
-		return FALSE;
-	}
+    if (!hWnd) {
+        return FALSE;
+    }
 
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
+    ShowWindow(hWnd, nCmdShow);
+    UpdateWindow(hWnd);
 
-	return TRUE;
+    return TRUE;
 }
 
 //
@@ -124,79 +124,79 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 //
 
 
-#define IDB_NEW 1001	// button "new game"
+#define IDB_NEW 1001    // button "new game"
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
-	static HWND hButton;
-	static INT dr;
+    static HWND hButton;
+    static INT dr;
 
     switch (message) {
-	case WM_CREATE:
-		InitGame(hWnd);
-		// create new game button
-		hButton = CreateWindow(L"Button", L"new game",
-			WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | BS_FLAT,
-			RECT_NEW.left, RECT_NEW.top, RECT_NEW.right - RECT_NEW.left,
-			RECT_NEW.bottom - RECT_NEW.top, hWnd, (HMENU)IDB_NEW,
-			hInst, nullptr);
-		break;
+    case WM_CREATE:
+        InitGame(hWnd);
+        // create new game button
+        hButton = CreateWindow(L"Button", L"new game",
+            WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON | BS_FLAT,
+            RECT_NEW.left, RECT_NEW.top, RECT_NEW.right - RECT_NEW.left,
+            RECT_NEW.bottom - RECT_NEW.top, hWnd, (HMENU)IDB_NEW,
+            hInst, nullptr);
+        break;
     case WM_PAINT: {
-		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(hWnd, &ps);
-		// TODO: 在此处添加使用 hdc 的任何绘图代码...
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hWnd, &ps);
+        // TODO: 在此处添加使用 hdc 的任何绘图代码...
 
-		RECT rc;
-		GetClientRect(hWnd, &rc);
-		HDC hMemDC = CreateCompatibleDC(hdc);									// del
-		DrawGame(hdc);
-		BitBlt(hdc, 0, 0, rc.right, rc.bottom, hMemDC, 0, 0, SRCCOPY);
-		DeleteDC(hMemDC);
-	}
-		break;
-	case WM_KEYDOWN: {
-		switch (wParam) {
-		case VK_LEFT:
-			Key_Left();
-			InvalidateRect(hWnd, nullptr, TRUE);
-			CheckState(hWnd);
-			break;
-		case VK_UP:
-			Key_Up();
-			InvalidateRect(hWnd, nullptr, TRUE);
-			CheckState(hWnd);
-			break;
-		case VK_RIGHT:
-			Key_Right();
-			InvalidateRect(hWnd, nullptr, TRUE);
-			CheckState(hWnd);
-			break;
-		case VK_DOWN:
-			Key_Down();
-			InvalidateRect(hWnd, nullptr, TRUE);
-			CheckState(hWnd);
-			break;
-		}
-	}	
-		break;
-	case WM_COMMAND: {
-		switch (LOWORD(wParam)) {
-		case IDB_NEW: {
-			dr = MessageBox(hWnd, L"new game?", L"confirm", MB_OK);
-			if (dr == 1) {
-				Destroy();
-				InitGame(hWnd);
-				InvalidateRect(hWnd, nullptr, TRUE);
-			}
-		
-			break;
-		}
-		default:
-			return DefWindowProc(hWnd, message, wParam, lParam);
-		}
-		break;
-	}
+        RECT rc;
+        GetClientRect(hWnd, &rc);
+        HDC hMemDC = CreateCompatibleDC(hdc);                                   // del
+        DrawGame(hdc);
+        BitBlt(hdc, 0, 0, rc.right, rc.bottom, hMemDC, 0, 0, SRCCOPY);
+        DeleteDC(hMemDC);
+    }
+        break;
+    case WM_KEYDOWN: {
+        switch (wParam) {
+        case VK_LEFT:
+            Key_Left();
+            InvalidateRect(hWnd, nullptr, TRUE);
+            CheckState(hWnd);
+            break;
+        case VK_UP:
+            Key_Up();
+            InvalidateRect(hWnd, nullptr, TRUE);
+            CheckState(hWnd);
+            break;
+        case VK_RIGHT:
+            Key_Right();
+            InvalidateRect(hWnd, nullptr, TRUE);
+            CheckState(hWnd);
+            break;
+        case VK_DOWN:
+            Key_Down();
+            InvalidateRect(hWnd, nullptr, TRUE);
+            CheckState(hWnd);
+            break;
+        }
+    }   
+        break;
+    case WM_COMMAND: {
+        switch (LOWORD(wParam)) {
+        case IDB_NEW: {
+            dr = MessageBox(hWnd, L"new game?", L"confirm", MB_OK);
+            if (dr == 1) {
+                Destroy();
+                InitGame(hWnd);
+                InvalidateRect(hWnd, nullptr, TRUE);
+            }
+        
+            break;
+        }
+        default:
+            return DefWindowProc(hWnd, message, wParam, lParam);
+        }
+        break;
+    }
     case WM_DESTROY:
-		Destroy();
+        Destroy();
         PostQuitMessage(0);
         break;
     default:
