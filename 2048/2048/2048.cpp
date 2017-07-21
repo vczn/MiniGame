@@ -1,4 +1,4 @@
-// 2048.cpp : ����Ӧ�ó������ڵ㡣
+﻿// 2048.cpp : 定义应用程序的入口点。
 //
 
 #include "stdafx.h"
@@ -6,12 +6,12 @@
 
 #define MAX_LOADSTRING 100
 
-// ȫ�ֱ���: 
-HINSTANCE hInst;                                // ��ǰʵ��
-WCHAR szTitle[MAX_LOADSTRING];                  // �������ı�
-WCHAR szWindowClass[MAX_LOADSTRING];            // ����������
+// 全局变量: 
+HINSTANCE hInst;                                // 当前实例
+WCHAR szTitle[MAX_LOADSTRING];                  // 标题栏文本
+WCHAR szWindowClass[MAX_LOADSTRING];            // 主窗口类名
 
-// �˴���ģ���а����ĺ�����ǰ������: 
+// 此代码模块中包含的函数的前向声明: 
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -24,14 +24,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-    // TODO: �ڴ˷��ô��롣
+    // TODO: 在此放置代码。
 
-    // ��ʼ��ȫ���ַ���
+    // 初始化全局字符串
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     LoadStringW(hInstance, IDC_MY2048, szWindowClass, MAX_LOADSTRING);
     MyRegisterClass(hInstance);
 
-    // ִ��Ӧ�ó����ʼ��: 
+    // 执行应用程序初始化: 
     if (!InitInstance (hInstance, nCmdShow)) {
         return FALSE;
     }
@@ -40,7 +40,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
-    // ����Ϣѭ��: 
+    // 主消息循环: 
     while (GetMessage(&msg, nullptr, 0, 0)) {
         if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
             TranslateMessage(&msg);
@@ -54,9 +54,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
 //
-//  ����: MyRegisterClass()
+//  函数: MyRegisterClass()
 //
-//  Ŀ��: ע�ᴰ���ࡣ
+//  目的: 注册窗口类。
 //
 ATOM MyRegisterClass(HINSTANCE hInstance) {
     WNDCLASSEXW wcex;
@@ -79,17 +79,17 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
 }
 
 //
-//   ����: InitInstance(HINSTANCE, int)
+//   函数: InitInstance(HINSTANCE, int)
 //
-//   Ŀ��: ����ʵ�����������������
+//   目的: 保存实例句柄并创建主窗口
 //
-//   ע��: 
+//   注释: 
 //
-//        �ڴ˺����У�������ȫ�ֱ����б���ʵ�������
-//        ��������ʾ�����򴰿ڡ�
+//        在此函数中，我们在全局变量中保存实例句柄并
+//        创建和显示主程序窗口。
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
-	hInst = hInstance; // ��ʵ������洢��ȫ�ֱ�����
+	hInst = hInstance; // 将实例句柄存储在全局变量中
 
 	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, CW_USEDEFAULT, CLIENT_WIDTH, CLIENT_HEIGHT, nullptr, nullptr, hInstance, nullptr);
@@ -97,7 +97,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 	INT nScreenWidth	= GetSystemMetrics(SM_CXSCREEN);
 	INT nScreenHeight	= GetSystemMetrics(SM_CYSCREEN);
 
-	// �Ƶ���Ļ����
+	// 移到屏幕中央
 	MoveWindow(hWnd, (nScreenWidth - CLIENT_WIDTH) / 2, 
 		(nScreenHeight - CLIENT_HEIGHT) / 2, CLIENT_WIDTH, 
 		CLIENT_HEIGHT, TRUE);
@@ -113,13 +113,13 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 }
 
 //
-//  ����: WndProc(HWND, UINT, WPARAM, LPARAM)
+//  函数: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
-//  Ŀ��:    ���������ڵ���Ϣ��
+//  目的:    处理主窗口的消息。
 //
-//  WM_COMMAND  - ����Ӧ�ó���˵�
-//  WM_PAINT    - ����������
-//  WM_DESTROY  - �����˳���Ϣ������
+//  WM_COMMAND  - 处理应用程序菜单
+//  WM_PAINT    - 绘制主窗口
+//  WM_DESTROY  - 发送退出消息并返回
 //
 //
 
@@ -143,7 +143,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     case WM_PAINT: {
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(hWnd, &ps);
-		// TODO: �ڴ˴�����ʹ�� hdc ���κλ�ͼ����...
+		// TODO: 在此处添加使用 hdc 的任何绘图代码...
 
 		RECT rc;
 		GetClientRect(hWnd, &rc);
